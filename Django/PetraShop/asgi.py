@@ -1,5 +1,5 @@
 """
-ASGI config for djangologin project.
+ASGI config for PetraShop project.
 
 It exposes the ASGI callable as a module-level variable named ``application``.
 
@@ -11,6 +11,6 @@ import os
 
 from django.core.asgi import get_asgi_application
 
-os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'djangologin.settings')
+os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'PetraShop.settings')
 
 application = get_asgi_application()

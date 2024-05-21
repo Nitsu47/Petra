@@ -1,5 +1,5 @@
 """
-WSGI config for djangologin project.
+WSGI config for PetraShop project.
 
 It exposes the WSGI callable as a module-level variable named ``application``.
 
@@ -11,6 +11,6 @@ import os
 
 from django.core.wsgi import get_wsgi_application
 
-os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'djangologin.settings')
+os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'PetraShop.settings')
 
 application = get_wsgi_application()
