@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:petratest/screens/home_screen.dart';
+import 'package:petratest/models/bag.dart';
 
 void main() {
   runApp(const MyApp());
