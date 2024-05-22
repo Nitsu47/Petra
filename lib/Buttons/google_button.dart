@@ -11,23 +11,22 @@ class GoogleButton extends StatelessWidget {
       },
       child: Center(
         child: Row(
-          mainAxisSize: MainAxisSize.min,
-          children: const <Widget>[
-            Icon(Icons.google),
-            SizedBox(width: 8),  // Añadir espacio entre el icono y el texto
-            Text('Google')
-          ],
+            mainAxisSize: MainAxisSize.min,
+            children: const <Widget>[
+              SizedBox(width: 8), // Añadir espacio entre el icono y el texto
+              Text('Google')
+            ]
         ),
       ),
     );
   }
-}
 
-void main() {
-  runApp(MaterialApp(
-    home: Scaffold(
-      appBar: AppBar(title: const Text('Botón de Google')),
-      body: const Center(child: GoogleButton()),
-    ),
-  ));
+  void main() {
+    runApp(MaterialApp(
+      home: Scaffold(
+        appBar: AppBar(title: const Text('Botón de Google')),
+        body: const Center(child: GoogleButton()),
+      ),
+    ));
+  }
 }
