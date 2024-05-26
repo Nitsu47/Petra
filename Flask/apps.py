@@ -52,10 +52,14 @@ def añadir_al_carrito():
             and item["Talle"] == new_product["Talle"]
         ):
             item["Cantidad"] += 1
+            session["cart"][0]["acumulado"] += new_product.get("PRRECIO_IVA_INC")
+            session["cart"][0]["productos"] += 1
             product_found = True
             break
     if not product_found:
         session["cart"].append(new_product)
+        session["cart"][0]["acumulado"] += new_product["PRRECIO_IVA_INC"]
+        session["cart"][0]["productos"] += 1
     session.modified = True
     return redirect(url_for('carrito'))
 
@@ -87,6 +91,8 @@ def eliminar_producto():
                     session["cart"].remove(item)
                 elif item.get("Cantidad", 0) >= 2:
                     item["Cantidad"] -= 1
+                session["cart"][0]["acumulado"] -= item.get("PRRECIO_IVA_INC")
+                session["cart"][0]["productos"] -= 1
                 break
     session.modified = True
     return redirect(url_for('carrito'))
