@@ -1,0 +1,46 @@
+{
+  "project_info": {
+    "project_number": "457519054926",
+    "project_id": "petra-25468",
+    "storage_bucket": "petra-25468.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:457519054926:android:6bf51ec5c53e522c28831f",
+        "android_client_info": {
+          "package_name": "com.example.petratest"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "457519054926-je5aj9gs3c12tq8ji9l1dosfkr3fngv6.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDrGD1NNVrwIprorCXd12j3NsPiy_ozvVw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "457519054926-je5aj9gs3c12tq8ji9l1dosfkr3fngv6.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "457519054926-8lnc67956anbp51ipsb8m60g5gkna1rn.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.petratest"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
