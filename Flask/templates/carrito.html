@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Carrito</title>
+</head>
+<body>
+    <h1>Carrito</h1>
+    <a href="/">Home</a>
+    <a href="/vaciar_carrito">Vaciar carrito</a>
+    
+    <h2>Resumen del Carrito</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>Productos</th>
+                <th>Acumulado</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>{{ resumen.productos }}</td>
+                <td>{{ resumen.acumulado }}</td>
+            </tr>
+        </tbody>
+    </table>
+    
+    <h2>Detalles del Carrito</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>Nombre</th>
+                <th>Color</th>
+                <th>Talle</th>
+                <th>Precio (IVA incluido)</th>
+                <th>Cantidad</th>
+                <th>Acción</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for product in products %}
+            <tr>
+                <td>{{ product.Nombre_Producto }}</td>
+                <td>{{ product.Color }}</td>
+                <td>{{ product.Talle }}</td>
+                <td>{{ product.PRRECIO_IVA_INC }}</td>
+                <td>{{ product.Cantidad }}</td>
+                <td>
+                    <form action="/eliminar_producto" method="GET">
+                        <input type="hidden" name="Nombre_Producto" value="{{ product.Nombre_Producto }}">
+                        <input type="hidden" name="Color" value="{{ product.Color }}">
+                        <input type="hidden" name="Talle" value="{{ product.Talle }}">
+                        <button type="submit">Eliminar</button>
+                    </form>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</body>
+</html>
