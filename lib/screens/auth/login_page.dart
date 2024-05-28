@@ -1,5 +1,6 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:petratest/screens/auth/register_page.dart';
@@ -120,28 +121,60 @@ class _LoginPageState extends State<LoginPage> {
                   ),
                 ),
               ),
-              const SizedBox(height: 15),
-              // not a member? register
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Text('No tienes cuenta?',
-                    style: GoogleFonts.inter(
-                      fontWeight: FontWeight.bold
-                    ),
-                  ),
-                  GestureDetector(
-                    onTap: widget.showRegisterPage,
-                    child: Text(' Registrate',
-                      style: GoogleFonts.inter(
-                        color: Colors.blue,
-                        fontWeight: FontWeight.bold
+              const SizedBox(height: 10),
+            // SIGN IN WITH GOOGLE
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 25.0),
+                  child: GestureDetector(
+                    onTap: signIn,
+                    child: Container(
+                      padding: EdgeInsets.all(15),
+                      decoration: BoxDecoration(
+                        color: Colors.grey[500],
+                        borderRadius: BorderRadius.circular(12),
+                      ),
+                      child: Center(child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Icon(
+                            FontAwesomeIcons.google,
+                            color: Colors.red,
+                          ),
+                          Text(
+                            '  Ingresar con google',
+                            style: GoogleFonts.inter(
+                              color: Colors.white,
+                              fontWeight: FontWeight.bold,
+                              fontSize: 18,
+                            ),
+                          ),
+                        ],
+                      ),
                       ),
                     ),
                   ),
-                ],
-              ),
-            
+                ),
+                const SizedBox(height: 15),
+                // not a member? register
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text('No tienes cuenta?',
+                      style: GoogleFonts.inter(
+                          fontWeight: FontWeight.bold
+                      ),
+                    ),
+                    GestureDetector(
+                      onTap: widget.showRegisterPage,
+                      child: Text(' Registrate',
+                        style: GoogleFonts.inter(
+                            color: Colors.blue,
+                            fontWeight: FontWeight.bold
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
             ],
             ),
           ),
