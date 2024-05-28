@@ -9,7 +9,8 @@ import 'package:petratest/models/bag.dart';
 Future main() async{
   WidgetsFlutterBinding.ensureInitialized();
   if(kIsWeb) {
-    await Firebase.initializeApp(options: FirebaseOptions(apiKey: "AIzaSyDpQ5_YanT4UZgpsWRZyEccOXoWyrE2lpM", appId: "1:457519054926:web:ff062545edf31b3a28831f", messagingSenderId: "457519054926", projectId: "petra-25468"))
+    await Firebase.initializeApp(options: const FirebaseOptions(apiKey: "AIzaSyDpQ5_YanT4UZgpsWRZyEccOXoWyrE2lpM", appId: "1:457519054926:web:ff062545edf31b3a28831f", messagingSenderId: "457519054926", projectId: "petra-25468")
+    );
   }
   await Firebase.initializeApp();
   runApp(const MyApp());
