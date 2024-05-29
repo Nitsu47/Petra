@@ -1,14 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import '/models/product.dart';
 import '/screens/cart.dart';
 
 class CartScreen extends StatelessWidget {
+  const CartScreen({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Carrito de Compras'),
+        title: const Text('Carrito de Compras'),
       ),
       body: Consumer<ShoppingCart>(
         builder: (context, cart, child) {
@@ -23,7 +24,7 @@ class CartScreen extends StatelessWidget {
                       title: Text(product.title),
                       subtitle: Text('${product.price} x ${product.quantity}'),
                       trailing: IconButton(
-                        icon: Icon(Icons.remove),
+                        icon: const Icon(Icons.remove),
                         onPressed: () {
                           cart.removeProduct(product.id);
                         },
@@ -47,7 +48,7 @@ class CartScreen extends StatelessWidget {
                 onPressed: () {
                   cart.clearCart();
                 },
-                child: Text('Limpiar Carrito'),
+                child: const Text('Limpiar Carrito'),
               ),
             ],
           );

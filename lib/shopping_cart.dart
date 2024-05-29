@@ -4,7 +4,7 @@ import 'package:http/http.dart' as http;
 import 'dart:convert';
 
 class CartWidget extends StatefulWidget {
-  const CartWidget({Key? key}) : super(key: key);
+  const CartWidget({super.key});
   @override
   CartWidgetState createState() => CartWidgetState();
 }
@@ -32,7 +32,7 @@ class CartWidgetState extends State<CartWidget> {
             },
             child: const Text('Eliminar del Carrito'),
           ),
-          CartScreen(),
+          const CartScreen(),
         ],
       ),
     );
