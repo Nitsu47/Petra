@@ -7,7 +7,7 @@ import 'package:petratest/screens/auth/register_page.dart';
 
 class LoginPage extends StatefulWidget {
   final VoidCallback showRegisterPage;
-  const LoginPage({Key? key,required this.showRegisterPage}) : super(key: key);
+  const LoginPage({super.key,required this.showRegisterPage});
 
   @override
   State<LoginPage> createState() => _LoginPageState();
@@ -97,14 +97,14 @@ class _LoginPageState extends State<LoginPage> {
                   ),
                 ),
               ),
-              SizedBox(height: 15),
+              const SizedBox(height: 15),
               // sign in button
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 25.0),
                 child: GestureDetector(
                   onTap: signIn,
                   child: Container(
-                    padding: EdgeInsets.all(15),
+                    padding: const EdgeInsets.all(15),
                     decoration: BoxDecoration(
                       color: Colors.black,
                       borderRadius: BorderRadius.circular(12),
@@ -128,21 +128,20 @@ class _LoginPageState extends State<LoginPage> {
                   child: GestureDetector(
                     onTap: signIn,
                     child: Container(
-                      padding: EdgeInsets.all(15),
+                      padding: const EdgeInsets.all(15),
                       decoration: BoxDecoration(
                         color: Colors.grey[500],
                         borderRadius: BorderRadius.circular(12),
                       ),
-                      child: Center(child: Row(
+                      child: const Center(child: Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           Icon(
                             FontAwesomeIcons.google,
                             color: Colors.red,
                           ),
-                          Text(
-                            '  Ingresar con google',
-                            style: GoogleFonts.inter(
+                          Text('Ingresar con google',
+                            style: TextStyle(
                               color: Colors.white,
                               fontWeight: FontWeight.bold,
                               fontSize: 18,

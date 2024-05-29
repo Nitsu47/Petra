@@ -6,9 +6,9 @@ plugins {
 }
 
 def localProperties = new Properties()
-def localPropertiesFile = rootProject.file("local.properties")
+def localPropertiesFile = rootProject.file('local.properties')
 if (localPropertiesFile.exists()) {
-    localPropertiesFile.withReader("UTF-8") { reader ->
+    localPropertiesFile.withReader('UTF-8') { reader ->
         localProperties.load(reader)
     }
 }
@@ -51,6 +51,9 @@ android {
 flutter {
     source = "../.."
 }
+
+
+apply plugin: 'com.google.gms.google-services'
 
 apply plugin: 'com.google.gms.google-services'
 
