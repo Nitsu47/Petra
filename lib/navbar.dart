@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
+import 'package:petratest/screens/home_screen.dart';
 import 'screens/cart_screen.dart';
-import 'screens/auth/test_home_screen.dart';
+import 'screens/profile_screen.dart';
+import 'screens/search_screen.dart';
 
 class NavBar extends StatefulWidget {
   const NavBar({super.key});
@@ -12,11 +14,12 @@ class NavBar extends StatefulWidget {
 
 class _NavBarState extends State<NavBar> {
   int _selectedIndex = 0;
-  static List<Widget> _widgetOptions = <Widget>[
-    const HomePage(),
-    const Text('Search Screen Placeholder'), // Placeholder for Search Screen
+
+  final List<Widget> _widgetOptions = <Widget>[
+    const HomeScreen(),
+    Searchpage(), // Placeholder for Search Screen
     CartScreen(),
-    const Text('Profile Screen Placeholder'), // Placeholder for Profile Screen
+    const ProfileScreen(), // Placeholder for Profile Screen
   ];
 
   void _onItemTapped(int index) {
