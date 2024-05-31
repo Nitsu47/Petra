@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:petratest/Navbar.dart';
 import 'package:petratest/screens/auth/auth_page.dart';
 import 'package:petratest/screens/auth/test_home_screen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -13,7 +14,7 @@ class MainPage extends StatelessWidget {
         stream: FirebaseAuth.instance.authStateChanges(),
         builder: (context, snapshot) {
           if (snapshot.hasData) {
-            return const HomePage();
+            return const NavBar();
           } else {
             return const AuthPage();
           }

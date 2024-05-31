@@ -32,7 +32,7 @@ class CartWidgetState extends State<CartWidget> {
             },
             child: const Text('Eliminar del Carrito'),
           ),
-          const CartScreen(),
+           CartScreen(),
         ],
       ),
     );
