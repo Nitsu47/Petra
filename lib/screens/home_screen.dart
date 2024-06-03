@@ -45,97 +45,79 @@ class _HomeState extends State<HomeScreen> {
       appBar: AppBar(
         toolbarHeight: 90,
         elevation: 0,
-        title: Text('Petra',
-            style: GoogleFonts.playfairDisplay(
-                color: Colors.black,
-                fontSize: 30,
-                fontWeight: FontWeight.bold)),
-        backgroundColor: Colors.white,
-        leading: IconButton(
-            iconSize: 48,
-            onPressed: () {},
-            icon: SvgPicture.asset("assets/Icon/burger")),
-        actions: [
-          Container(
-            margin: const EdgeInsets.only(right: 12),
-            width: 48,
-            height: 48,
-            decoration: const BoxDecoration(
-                color: Colors.black, shape: BoxShape.circle),
-            child: Image.asset('', fit: BoxFit.contain),
-          )
-        ],
-      ),
-      body: Column(
-        children: [
+        title: const Text('PETRA',
+        style: TextStyle(
+          fontSize: 30,
+        )
+        ),
+            centerTitle: true,
 
-          Stack(
-            children: [
-              CarouselSlider.builder(
-                  itemCount: heroImages.length,
-                  options: CarouselOptions(viewportFraction: 1, height: 205),
-                  itemBuilder: (context, index, realIndex) {
-                    return Container(
-                      width: double.infinity,
-                      margin: const EdgeInsets.symmetric(horizontal: 12),
-                      decoration: BoxDecoration(
-                          image: DecorationImage(
-                              image: AssetImage(heroImages[index]),
-                              fit: BoxFit.cover)),
-                      child: const Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          crossAxisAlignment: CrossAxisAlignment.end,
-                          children: [
-                            Padding(
-                              padding: EdgeInsets.only(right: 12),
-                              )
-                            ]),
-                      );
-                    }),
-              Positioned(
-                bottom: 1,
-                right: 22,
-                child: Row(
-                  children: [
-                    ElevatedButton(
-                        style: ElevatedButton.styleFrom(
-                            backgroundColor: Colors.black,
-                            minimumSize: const Size(50, 50),
-                            shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(0))),
-                        onPressed: previousPage,
-                        child: const Icon(
-                          Icons.arrow_back,
-                          size: 30,
-                        )),
-                    const SizedBox(width: 3),
-                ElevatedButton(
-                    style: ElevatedButton.styleFrom(
-                        backgroundColor: Colors.black,
-                        minimumSize: const Size(50, 50),
-                        shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(0))),
-                    onPressed: nextPage,
-                    child: const Icon(
-                      Icons.arrow_forward,
-                      size: 30,
-                    ))
-                  ],
-                ),
-              )
-            ],
-          )
+        backgroundColor: Colors.white,
+      ),
+      body: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: GridView.builder(
+          gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+            crossAxisCount: 2, // Número de columnas
+            childAspectRatio: 2 / 3, // Relación de aspecto de los hijos
+            crossAxisSpacing: 8.0, // Espaciado entre columnas
+            mainAxisSpacing: 8.0, // Espaciado entre filas
+          ),
+          itemCount: 6, // Número de productos a mostrar
+          itemBuilder: (context, index) {
+            return ProductCard(
+              title: 'Producto ${index + 1}',
+              price: '${(index + 1) * 10}.00',
+              imageUrl: 'https://via.placeholder.com/150',
+            );
+          },
+        ),
+      ),
+    );
+  }
+}
+class ProductCard extends StatelessWidget {
+  final String title;
+  final String price;
+  final String imageUrl;
+  const ProductCard({super.key,
+    required this.title,
+    required this.price,
+    required this.imageUrl,
+  });
+  @override
+  Widget build(BuildContext context) {
+    return Card(
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Image.network(
+            imageUrl,
+            width: double.infinity,
+            height: 150,
+            fit: BoxFit.cover,
+          ),
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Text(
+              title,
+              style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 8.0),
+            child: Text(
+              '\$$price',
+              style: const TextStyle(fontSize: 16, color: Colors.grey),
+            ),
+          ),
         ],
       ),
     );
   }
+}
 
 
-  void previousPage() {
-    controller.previousPage(duration: const Duration(milliseconds: 2000));
-  }
 
-  void nextPage() {
-    controller.nextPage(duration: const Duration(milliseconds: 2000));
-  }
- }
+
+
