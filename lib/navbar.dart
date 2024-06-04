@@ -45,19 +45,19 @@ class _NavBarState extends State<NavBar> {
           tabs: const [
             GButton(
               icon: Icons.home_outlined,
-              text: 'Home',
+              text: 'Inicio',
             ),
             GButton(
               icon: Icons.search_outlined,
-              text: 'Search',
+              text: 'Buscar',
             ),
             GButton(
               icon: Icons.shopping_cart_outlined,
-              text: 'Cart',
+              text: 'Carrito',
             ),
             GButton(
               icon: Icons.person_outline,
-              text: 'Profile',
+              text: 'Perfil',
             ),
           ],
         ),

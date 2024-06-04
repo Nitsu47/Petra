@@ -64,7 +64,15 @@ class _CartScreenState extends State<CartScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Carrito de productos'),
+        toolbarHeight: 80,
+        centerTitle: true,
+        title: const Text('PETRA',
+            style: TextStyle(
+              fontFamily: 'TrajanPro',
+              fontWeight: FontWeight.bold,
+              fontSize: 30,
+              )
+          ),
       ),
       body: Column(
         children: [

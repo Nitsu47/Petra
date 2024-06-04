@@ -12,6 +12,10 @@ class ProfileScreen extends StatefulWidget {
 
 class _ProfileScreen extends State<ProfileScreen> {
   final user = FirebaseAuth.instance.currentUser!;
+  // nombre y apellido con pincel para editar
+  // correo
+  // dirrecion de envio
+  // cerrar sesion
 
   @override
   Widget build(BuildContext context) {
@@ -24,7 +28,7 @@ class _ProfileScreen extends State<ProfileScreen> {
                 MaterialButton(
                   onPressed: FirebaseAuth.instance.signOut,
                   color: Colors.deepPurple,
-                  child: const Text('sign out'),
+                  child: const Text('Cerrar Sesion'),
                 )
               ],
             )

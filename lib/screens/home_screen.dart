@@ -39,18 +39,17 @@ class _HomeState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
       appBar: AppBar(
-        toolbarHeight: 90,
+        toolbarHeight: 80,
         elevation: 0,
         title: const Text('PETRA',
         style: TextStyle(
+          fontFamily: 'TrajanPro',
+          fontWeight: FontWeight.bold,
           fontSize: 30,
         )
         ),
             centerTitle: true,
-
-        backgroundColor: Colors.white,
       ),
       body: Padding(
         padding: const EdgeInsets.all(8.0),
