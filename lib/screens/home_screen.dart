@@ -20,7 +20,7 @@ class Bag {
 
 List<Bag> listOfBags() {
   return [
-    Bag(name: "top", imagePath: "bag1.png"),
+    Bag(name: "top", imagePath: "top.png"),
     Bag(name: "buzz", imagePath: "bag2.png"),
     Bag(name: "pantaloons", imagePath: "bag3.png"),
     Bag(name: "camera", imagePath: "bag4.png"),
@@ -30,7 +30,7 @@ List<Bag> listOfBags() {
 class _HomeState extends State<HomeScreen> {
   List<Bag> bags = listOfBags();
   List<String> heroImages = [
-    "assets/Images/hero1.png",
+    "assets/Icon/top.png",
     "assets/Images/hero2.png",
   ];
 
@@ -65,7 +65,7 @@ class _HomeState extends State<HomeScreen> {
             return ProductCard(
               title: 'Producto ${index + 1}',
               price: '${(index + 1) * 10}.00',
-              imageUrl: 'https://via.placeholder.com/150',
+              imageUrl: 'assets/Icon/top.png'
             );
           },
         ),

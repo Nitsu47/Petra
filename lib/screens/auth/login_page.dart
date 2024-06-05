@@ -32,6 +32,18 @@ class _LoginPageState extends State<LoginPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
+      appBar: AppBar(
+        toolbarHeight: 80,
+        elevation: 0,
+        title: const Text('PETRA',
+            style: TextStyle(
+              fontFamily: 'TrajanPro',
+              fontWeight: FontWeight.bold,
+              fontSize: 43,
+            )
+        ),
+        centerTitle: true,
+      ),
       body: SafeArea(
         child: Center(
           child: SingleChildScrollView(
@@ -40,9 +52,8 @@ class _LoginPageState extends State<LoginPage> {
               children: [
               // Petra
               const Text(
-                'PETRA',
+                'Iniciar Sesion',
               style: TextStyle(
-                  fontFamily: 'TrajanPro',
                   fontWeight: FontWeight.bold,
                   fontSize: 35
                 ),
