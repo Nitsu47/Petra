@@ -32,6 +32,18 @@ class _RegisterPageState extends State<RegisterPage> {
   Widget build(BuildContext context) {
     return Scaffold(
         backgroundColor: Colors.white,
+        appBar: AppBar(
+          toolbarHeight: 80,
+          elevation: 0,
+          title: const Text('PETRA',
+              style: TextStyle(
+                fontFamily: 'TrajanPro',
+                fontWeight: FontWeight.bold,
+                fontSize: 43,
+              )
+          ),
+          centerTitle: true,
+        ),
         body: SafeArea(
           child: Center(
             child: Column(
@@ -39,9 +51,8 @@ class _RegisterPageState extends State<RegisterPage> {
               children: [
                 // Petra
                 const Text(
-                  'PETRA',
+                  'Crear una cuenta',
                   style: TextStyle(
-                      fontFamily: 'TrajanPro',
                       fontWeight: FontWeight.bold,
                       fontSize: 35
                   ),
