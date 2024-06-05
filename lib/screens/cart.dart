@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'Product.dart';
+import 'package:petratest/models/product.dart';
 
 // Definición de la clase ShoppingCart que extiende ChangeNotifier
 class ShoppingCart extends ChangeNotifier {

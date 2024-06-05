@@ -1,11 +1,13 @@
 #!/usr/bin/env python3
 from flask import Flask, session, url_for, redirect, request, jsonify, render_template
 from markupsafe import escape
+from flask_cors import CORS
 import json
 
 
 app = Flask(__name__)
 app.secret_key = "Banana"
+CORS(app)
 
 @app.route('/')
 def home():
