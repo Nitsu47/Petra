@@ -48,77 +48,59 @@ class _ProfileScreen extends State<ProfileScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        toolbarHeight: 80,
-        elevation: 0,
-        title: const Text('PETRA',
-            style: TextStyle(
-              fontFamily: 'TrajanPro',
-              fontWeight: FontWeight.bold,
-              fontSize: 30,
-            )
-        ),
-        centerTitle: true,
+        title: const Text('Perfil'),
       ),
       body: Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: GridView.builder(
-          gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-            crossAxisCount: 2, // Número de columnas
-            childAspectRatio: 2 / 3, // Relación de aspecto de los hijos
-            crossAxisSpacing: 8.0, // Espaciado entre columnas
-            mainAxisSpacing: 8.0, // Espaciado entre filas
-          ),
-          itemCount: 6, // Número de productos a mostrar
-          itemBuilder: (context, index) {
-            return ProductCard(
-              title: 'Producto ${index + 1}',
-              price: '${(index + 1) * 10}.00',
-              imageUrl: 'assets/Icon/top.png',
-            );
-          },
+        padding: const EdgeInsets.all(16.0),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Row(
+              children: [
+                Expanded(
+                  child: TextField(
+                    controller: _firstNameController,
+                    decoration: const InputDecoration(labelText: 'Nombre'),
+                  ),
+                ),
+                const SizedBox(width: 10),
+                Expanded(
+                  child: TextField(
+                    controller: _lastNameController,
+                    decoration: const InputDecoration(labelText: 'Apellido'),
+                  ),
+                ),
+              ],
+            ),
+            const SizedBox(height: 20),
+            TextField(
+              controller: _addressController,
+              decoration: const InputDecoration(labelText: 'Dirección de envío'),
+            ),
+            const SizedBox(height: 20),
+            Text('Correo: ${user.email!}', style: const TextStyle(fontSize: 16)),
+            const SizedBox(height: 40),
+            Center(
+              child: MaterialButton(
+                onPressed: () async {
+                  await _saveUserData();
+                  await FirebaseAuth.instance.signOut();
+                  Navigator.of(context).pop();
+                },
+                color: Colors.deepPurple,
+                child: const Text('Guardar y Cerrar Sesión', style: TextStyle(color: Colors.white)),
+              ),
+            ),
+          ],
         ),
       ),
     );
   }
-}
-class ProductCard extends StatelessWidget {
-  final String title;
-  final String price;
-  final String imageUrl;
-  const ProductCard({
-    super.key,
-    required this.title,
-    required this.price,
-    required this.imageUrl,
-  });
   @override
-  Widget build(BuildContext context) {
-    return Card(
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Image.asset(
-            imageUrl,
-            width: double.infinity,
-            height: 150,
-            fit: BoxFit.cover,
-          ),
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Text(
-              title,
-              style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-            ),
-          ),
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 8.0),
-            child: Text(
-              '\$$price',
-              style: const TextStyle(fontSize: 16, color: Colors.grey),
-            ),
-          ),
-        ],
-      ),
-    );
+  void dispose() {
+    _firstNameController.dispose();
+    _lastNameController.dispose();
+    _addressController.dispose();
+    super.dispose();
   }
 }
