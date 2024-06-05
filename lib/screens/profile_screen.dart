@@ -88,7 +88,7 @@ class _ProfileScreen extends State<ProfileScreen> {
                   Navigator.of(context).pop();
                 },
                 color: Colors.deepPurple,
-                child: const Text('Guardar y Cerrar Sesión', style: TextStyle(color: Colors.white)),
+                child: const Text('Cerrar Sesión', style: TextStyle(color: Colors.white)),
               ),
             ),
           ],
