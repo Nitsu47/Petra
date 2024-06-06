@@ -1,6 +1,8 @@
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import '../models/cart_item.dart';
+import 'package:flutter/painting.dart';
+import 'package:flutter/rendering.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -36,117 +38,72 @@ class _HomeState extends State<HomeScreen> {
   ];
 
   final controller = CarouselController();
-  List<CartItem> cartItems = [];
-
-  void addToCart(String title, String price, String imageUrl) {
-    final newItem = CartItem(
-      nombreProducto: title,
-      color: '',
-      talle: '',
-      precio: double.parse(price),
-      imageUrl: imageUrl,
-      cantidad: 1,
-    );
-
-    setState(() {
-      cartItems.add(newItem);
-    });
-
-    ScaffoldMessenger.of(context).showSnackBar(
-      const SnackBar(
-        content: Text('Producto añadido al carrito'),
-      ),
-    );
-  }
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        toolbarHeight: 80,
-        elevation: 0,
-        title: const Text('PETRA',
-        style: TextStyle(
-          fontFamily: 'TrajanPro',
-          fontWeight: FontWeight.bold,
-          fontSize: 30,
-        )
-        ),
-            centerTitle: true,
-      ),
-      body: Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: GridView.builder(
-          gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-            crossAxisCount: 2, // Número de columnas
-            childAspectRatio: 2 / 3, // Relación de aspecto de los hijos
-            crossAxisSpacing: 8.0, // Espaciado entre columnas
-            mainAxisSpacing: 8.0, // Espaciado entre filas
-          ),
-          itemCount: 6, // Número de productos a mostrar
-          itemBuilder: (context, index) {
-            return ProductCard(
-              title: 'Producto ${index + 1}',
-              price: '${(index + 1) * 10}.00',
-              imageUrl: 'assets/Icon/top.png',
-              onAddToCart: () => addToCart(
-                'Producto ${index + 1}',
-                '${(index + 1) * 10}.00',
-                'https://via.placeholder.com/150',
-              ),
-            );
-          },
-        ),
-      ),
-    );
-  }
-}
-class ProductCard extends StatelessWidget {
-  final String title;
-  final String price;
-  final String imageUrl;
-  final VoidCallback onAddToCart;
-  const ProductCard({super.key,
-    required this.title,
-    required this.price,
-    required this.imageUrl,
-    required this.onAddToCart,
-  });
-  @override
-  Widget build(BuildContext context) {
-    return Card(
+    return SingleChildScrollView(
       child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Image.network(
-            imageUrl,
-            width: double.infinity,
-            height: 150,
-            fit: BoxFit.cover,
-          ),
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Text(
-              title,
-              style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-            ),
-          ),
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 8.0),
-            child: Text(
-              '\$$price',
-              style: const TextStyle(fontSize: 16, color: Colors.grey),
-            ),
-          ),
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: ElevatedButton(
-              onPressed: onAddToCart,
-              child: const Text('Añadir al carrito'),
-            ),
-          ),
-        ],
+          children: [
+      const Padding(
+        padding: EdgeInsets.symmetric(horizontal: 16.0, vertical: 11.0),
+      child: Text(
+        'PETRA',
+        style: TextStyle(
+          fontSize: 30,
+          fontWeight: FontWeight.bold,
+          fontFamily: 'TrajanPro',
+        ),
       ),
-    );
+    ),
+      Stack(
+        children: [
+      Container(
+        height: 370,
+        padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 11.0),
+        child: Image.network(
+          "https://f.fcdn.app/imgs/cc5228/petrastore.com.uy/pstouy/1b7f/original/catalogo/JFEL-130_1/460x690/jean-felino-negro.jpg", // Coloca la ruta de tu imagen aquí
+          fit: BoxFit.cover,
+          width: double.infinity,
+        ),
+      ),
+    ],
+    ),
+      Row(
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        children: [
+          Column(
+            children: [
+              Image.network(
+                "https://f.fcdn.app/imgs/fcbe9d/petrastore.com.uy/pstouy/c0ed/original/catalogo/COLIV-05Z_1/460x690/camisa-olivia-celeste-cuello-marron.jpg", // Coloca la ruta de tu imagen aquí
+                width: 170,
+                height: 230,
+                fit: BoxFit.cover,
+              ),
+              const Padding(
+                padding: EdgeInsets.all(8.0),
+                child: Text('Bucanera Polka - Negro'),
+              ),
+              const Padding(padding: EdgeInsets.all(8.0)
+              child)
+            ],
+          ),
+           Column(
+            children: [
+              Image.network(
+                "https://f.fcdn.app/imgs/f47f55/petrastore.com.uy/pstouy/dd9d/original/catalogo/8568-109_1/460x690/vestido-joaquina-jean.jpg", // Coloca la ruta de tu imagen aquí
+                width: 170,
+                height: 230,
+                fit: BoxFit.cover,
+              ),
+              const Padding(
+                padding: EdgeInsets.all(8.0),
+                child: Text('Bota Tartan - Negro'),
+              ),
+            ],
+          ),
+      ],
+        ),
+      ])
+     );
   }
 }
