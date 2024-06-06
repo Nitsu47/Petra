@@ -3,6 +3,7 @@ class CartItem {
   final String color;
   final String talle;
   final double precio;
+  final String imageUrl;
   int cantidad;
 
   CartItem({
@@ -10,6 +11,7 @@ class CartItem {
     required this.color,
     required this.talle,
     required this.precio,
+    required this.imageUrl,
     this.cantidad = 1,
   });
 
@@ -19,6 +21,7 @@ class CartItem {
       color: json['Color'],
       talle: json['Talle'],
       precio: json['PRRECIO_IVA_INC'],
+      imageUrl: json['ImageUrl'],
       cantidad: json['Cantidad'] ?? 1,
     );
   }
@@ -28,6 +31,7 @@ class CartItem {
     'Color': color,
     'Talle': talle,
     'PRRECIO_IVA_INC': precio,
+    'ImageUrl': imageUrl,
     'Cantidad': cantidad,
   };
 }

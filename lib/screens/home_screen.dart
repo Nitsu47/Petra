@@ -1,5 +1,6 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
+import '../models/cart_item.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -35,6 +36,28 @@ class _HomeState extends State<HomeScreen> {
   ];
 
   final controller = CarouselController();
+  List<CartItem> cartItems = [];
+
+  void addToCart(String title, String price, String imageUrl) {
+    final newItem = CartItem(
+      nombreProducto: title,
+      color: '',
+      talle: '',
+      precio: double.parse(price),
+      imageUrl: imageUrl,
+      cantidad: 1,
+    );
+
+    setState(() {
+      cartItems.add(newItem);
+    });
+
+    ScaffoldMessenger.of(context).showSnackBar(
+      const SnackBar(
+        content: Text('Producto añadido al carrito'),
+      ),
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -65,7 +88,12 @@ class _HomeState extends State<HomeScreen> {
             return ProductCard(
               title: 'Producto ${index + 1}',
               price: '${(index + 1) * 10}.00',
-              imageUrl: 'assets/Icon/top.png'
+              imageUrl: 'assets/Icon/top.png',
+              onAddToCart: () => addToCart(
+                'Producto ${index + 1}',
+                '${(index + 1) * 10}.00',
+                'https://via.placeholder.com/150',
+              ),
             );
           },
         ),
@@ -77,10 +105,12 @@ class ProductCard extends StatelessWidget {
   final String title;
   final String price;
   final String imageUrl;
+  final VoidCallback onAddToCart;
   const ProductCard({super.key,
     required this.title,
     required this.price,
     required this.imageUrl,
+    required this.onAddToCart,
   });
   @override
   Widget build(BuildContext context) {
@@ -108,13 +138,15 @@ class ProductCard extends StatelessWidget {
               style: const TextStyle(fontSize: 16, color: Colors.grey),
             ),
           ),
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: ElevatedButton(
+              onPressed: onAddToCart,
+              child: const Text('Añadir al carrito'),
+            ),
+          ),
         ],
       ),
     );
   }
 }
-
-
-
-
-
