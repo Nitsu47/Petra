@@ -2,7 +2,6 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
-import 'package:flutter/rendering.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -83,8 +82,6 @@ class _HomeState extends State<HomeScreen> {
                 padding: EdgeInsets.all(8.0),
                 child: Text('Bucanera Polka - Negro'),
               ),
-              const Padding(padding: EdgeInsets.all(8.0)
-              child)
             ],
           ),
            Column(
