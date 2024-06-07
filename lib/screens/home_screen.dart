@@ -40,17 +40,31 @@ class HomeScreen extends StatelessWidget {
                   child: VideoPlayer(_controller),
                 ),
               )
-                  : Center(child: CircularProgressIndicator()),
+                  : const Center(child: CircularProgressIndicator()),
             ),
           ),
-          SliverToBoxAdapter(
+          const SliverToBoxAdapter(
             child: SizedBox(height: 10),
           ),
-          SliverToBoxAdapter(
+          const SliverToBoxAdapter(
             child: ProductSlider(),
           ),
+          const SliverToBoxAdapter(
+            child: SizedBox(height: 5),
+          ),
           SliverToBoxAdapter(
-            child: SizedBox(height: 10),
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 10),
+              child: Text(
+                'Te puede interesar...', style: GoogleFonts.montserrat(
+                  fontSize: 24,
+                  fontWeight: FontWeight.bold
+              ),
+              ),
+            ), // Adjust the height as needed
+          ),
+          const SliverToBoxAdapter(
+            child: SizedBox(height: 5),
           ),
           SliverPadding(
             padding: EdgeInsets.symmetric(horizontal: 10),
@@ -58,7 +72,7 @@ class HomeScreen extends StatelessWidget {
               future: loadProducts(context),
               builder: (context, snapshot) {
                 if (snapshot.connectionState == ConnectionState.waiting) {
-                  return SliverToBoxAdapter(
+                  return const SliverToBoxAdapter(
                     child: Center(child: CircularProgressIndicator()),
                   );
                 } else if (snapshot.hasError) {
@@ -68,7 +82,7 @@ class HomeScreen extends StatelessWidget {
                 } else {
                   final productList = snapshot.data!;
                   return SliverGrid(
-                    gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                    gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                       crossAxisCount: 2,
                       childAspectRatio: 0.65,
                       mainAxisSpacing: 10,
@@ -89,6 +103,9 @@ class HomeScreen extends StatelessWidget {
               },
             ),
           ),
+          const SliverToBoxAdapter(
+            child: SizedBox(height: 85), // Adjust the height as needed
+          ),
         ],
       ),
     );
@@ -100,7 +117,9 @@ class HomeScreen extends StatelessWidget {
     final List<dynamic> parsedJson = jsonDecode(jsonProducts);
     final List<Map<String, dynamic>> products =
     parsedJson.cast<Map<String, dynamic>>();
-    return products;
+
+    products.shuffle();
+    return products.take(6).toList();
   }
 }
 
@@ -126,7 +145,7 @@ class RecentSingleProduct extends StatelessWidget {
             color: Colors.grey.withOpacity(0.5),
             spreadRadius: 2,
             blurRadius: 3,
-            offset: Offset(0, 2),
+            offset: const Offset(0, 2),
           ),
         ],
       ),
@@ -140,8 +159,8 @@ class RecentSingleProduct extends StatelessWidget {
               height: 250,
               width: double.infinity,
               fit: BoxFit.cover,
-              placeholder: (context, url) => Center(child: CircularProgressIndicator()),
-              errorWidget: (context, url, error) => Icon(Icons.error),
+              placeholder: (context, url) => const Center(child: CircularProgressIndicator()),
+              errorWidget: (context, url, error) => const Icon(Icons.error),
             ),
           ),
           Padding(
@@ -158,9 +177,9 @@ class RecentSingleProduct extends StatelessWidget {
                   maxLines: 1,
                   overflow: TextOverflow.ellipsis,
                 ),
-                SizedBox(height: 4),
+                const SizedBox(height: 4),
                 Text(
-                  '\$${recentSingleProdPrice}',
+                  '\$$recentSingleProdPrice',
                   style: GoogleFonts.montserrat(
                     fontSize: 17,
                     color: Colors.grey[700],
