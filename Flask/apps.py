@@ -11,7 +11,7 @@ app.secret_key = "Banana"
 def home():
     with open('products.json', 'r') as f:
         data = json.load(f)
-    return render_template('home.html', products=data)
+    return jsonify(data)
 
 @app.route("/carrito")
 def carrito():
