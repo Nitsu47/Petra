@@ -82,15 +82,11 @@ class _ProfileScreen extends State<ProfileScreen> {
             const SizedBox(height: 40),
             Center(
               child: MaterialButton(
-                onPressed: () async {
-                  await _saveUserData();
-                  await FirebaseAuth.instance.signOut();
-                  Navigator.of(context).pop();
-                },
-                color: Colors.deepPurple,
-                child: const Text('Cerrar Sesión', style: TextStyle(color: Colors.white)),
+                onPressed: FirebaseAuth.instance.signOut,
+                  color: Colors.deepPurple,
+                  child: const Text('Cerrar Sesion', style: TextStyle(color: Colors.white)),
+                )
               ),
-            ),
           ],
         ),
       ),

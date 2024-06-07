@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:petratest/services/slider.dart';
 import 'package:petratest/services/video_controller_provider.dart';
 import 'package:provider/provider.dart';
@@ -150,7 +151,7 @@ class RecentSingleProduct extends StatelessWidget {
               children: [
                 Text(
                   recentSingleProdName!,
-                  style: const TextStyle(
+                  style: GoogleFonts.montserrat(
                     fontSize: 16,
                     fontWeight: FontWeight.bold,
                   ),
@@ -160,8 +161,8 @@ class RecentSingleProduct extends StatelessWidget {
                 SizedBox(height: 4),
                 Text(
                   '\$${recentSingleProdPrice}',
-                  style: TextStyle(
-                    fontSize: 14,
+                  style: GoogleFonts.montserrat(
+                    fontSize: 17,
                     color: Colors.grey[700],
                   ),
                 ),

@@ -14,7 +14,7 @@ class _ProductSliderState extends State<ProductSlider> {
   final List<String> imgList = [
     'https://f.fcdn.app/imgs/ffec5f/petrastore.com.uy/pstouy/88fa/original/catalogo/lc2232-022_1/460x690/campera-akita-beige.jpg',
     'https://f.fcdn.app/imgs/8b9e0a/petrastore.com.uy/pstouy/0603/webp/recursos/70/0x0/640-x-600-coleccion.jpg', // Replace with your image URLs or asset paths
-    'https://f.fcdn.app/imgs/5fe1d4/petrastore.com.uy/pstouy/7147/original/catalogo/288400-130_1/460x690/bucanera-polka-negro.jpg',
+    'https://f.fcdn.app/imgs/8bd80b/petrastore.com.uy/pstouy/de53/webp/recursos/74/0x0/640-x-640-complementos.jpg',
   ];
 
   @override
@@ -41,6 +41,7 @@ class _ProductSliderState extends State<ProductSlider> {
         height: 400,
         autoPlay: true,
         enlargeCenterPage: true,
+        autoPlayInterval: Duration(seconds: 2),
         aspectRatio: 16/9,
         viewportFraction: 1,
       ),
