@@ -60,3 +60,9 @@ tasks.whenTaskAdded { task ->
         task.dependsOn 'processDebugGoogleServices'
     }
 }
+
+android {
+    defaultConfig {
+        minSdkVersion 23
+        }
+    }
