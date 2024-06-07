@@ -1,16 +1,11 @@
 import scrapy
 from petra_scraping_web.items import PetraScrapingWebItem
-from scrapy.rules import Rule
-from scrapy.spiders import CrawlSpider, Rule
 
-class PetraSpider(CrawlSpider):
+
+class PetraSpider(scrapy.Spider):
     name = 'petrastore'
     allowed_domains = ['petrastore.com.uy']
     start_urls = ['https://petrastore.com.uy/coleccion']
-
-    rules = (
-        Rule(LinkExtractor(allow=r'/page/'), callback='parse_page', follow=True),
-    )
 
     def parse(self, response):
         products = response.xpath('//*[@id="catalogoProductos"]/div')
@@ -24,13 +19,10 @@ class PetraSpider(CrawlSpider):
             ml_item['img_url'] = response.urljoin(img_url)
             ml_item['precio'] = precio
             yield ml_item
-        
-        # Extraer el total de páginas desde un atributo data-totabs o similar
+    
         total_pages = response.xpath('//*[@id="catalogoProductos"]/@data-totabs').get()
         if total_pages:
             total_pages = int(total_pages)
-
-            # Iniciar solicitudes para las páginas restantes
             for page in range(2, total_pages + 1):
                 next_page_url = f'https://petrastore.com.uy/coleccion?js=1&pag={page}'
                 yield scrapy.Request(url=next_page_url, callback=self.parse_more)
@@ -47,12 +39,4 @@ class PetraSpider(CrawlSpider):
             ml_item['img_url'] = response.urljoin(img_url)
             ml_item['precio'] = precio
             yield ml_item
-
-        # Continuar la paginación si hay más páginas disponibles
-        current_page = int(response.url.split('=')[-1])
-        total_pages = response.xpath('//*[@id="catalogoProductos"]/@data-totabs').get()
-        if total_pages:
-            total_pages = int(total_pages)
-            if current_page < total_pages:
-                next_page_url = f'https://petrastore.com.uy/coleccion?js=1&pag={current_page + 1}'
-                yield scrapy.Request(url=next_page_url, callback=self.parse_more)
+ 
