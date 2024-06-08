@@ -48,7 +48,16 @@ class _ProfileScreen extends State<ProfileScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Perfil'),
+        toolbarHeight: 80,
+        elevation: 0,
+        title: const Text('PETRA',
+            style: TextStyle(
+              fontFamily: 'TrajanPro',
+              fontWeight: FontWeight.bold,
+              fontSize: 30,
+            )
+        ),
+        centerTitle: true,
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
