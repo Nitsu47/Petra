@@ -35,3 +35,18 @@ class CartItem {
     'Cantidad': cantidad,
   };
 }
+
+List<CartItem> cartItems = [];
+
+void addToCart(String title, String price, String imageUrl) {
+  final newItem = CartItem(
+    nombreProducto: title,
+    color: '',
+    talle: '',
+    precio: double.parse(price),
+    imageUrl: imageUrl,
+    cantidad: 1,
+  );
+
+  cartItems.add(newItem);
+}

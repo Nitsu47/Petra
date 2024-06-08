@@ -5,6 +5,7 @@ import 'package:petratest/services/video_controller_provider.dart';
 import 'package:provider/provider.dart';
 import 'package:video_player/video_player.dart';
 import 'package:cached_network_image/cached_network_image.dart';
+import '../screens/product_details.dart';
 import 'dart:convert';
 
 class HomeScreen extends StatelessWidget {
@@ -33,13 +34,13 @@ class HomeScreen extends StatelessWidget {
               centerTitle: true,
               background: _controller.value.isInitialized
                   ? FittedBox(
-                fit: BoxFit.cover,
-                child: SizedBox(
-                  width: _controller.value.size?.width ?? 0,
-                  height: _controller.value.size?.height ?? 0,
-                  child: VideoPlayer(_controller),
-                ),
-              )
+                      fit: BoxFit.cover,
+                      child: SizedBox(
+                        width: _controller.value.size?.width ?? 0,
+                        height: _controller.value.size?.height ?? 0,
+                        child: VideoPlayer(_controller),
+                      ),
+                    )
                   : const Center(child: CircularProgressIndicator()),
             ),
           ),
@@ -56,18 +57,17 @@ class HomeScreen extends StatelessWidget {
             child: Padding(
               padding: const EdgeInsets.symmetric(horizontal: 10),
               child: Text(
-                'Te puede interesar...', style: GoogleFonts.montserrat(
-                  fontSize: 24,
-                  fontWeight: FontWeight.bold
+                'Te puede interesar...',
+                style: GoogleFonts.montserrat(
+                    fontSize: 24, fontWeight: FontWeight.bold),
               ),
-              ),
-            ), // Adjust the height as needed
+            ),
           ),
           const SliverToBoxAdapter(
             child: SizedBox(height: 5),
           ),
           SliverPadding(
-            padding: EdgeInsets.symmetric(horizontal: 10),
+            padding: const EdgeInsets.symmetric(horizontal: 10),
             sliver: FutureBuilder<List<Map<String, dynamic>>>(
               future: loadProducts(context),
               builder: (context, snapshot) {
@@ -82,14 +82,15 @@ class HomeScreen extends StatelessWidget {
                 } else {
                   final productList = snapshot.data!;
                   return SliverGrid(
-                    gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                    gridDelegate:
+                        const SliverGridDelegateWithFixedCrossAxisCount(
                       crossAxisCount: 2,
                       childAspectRatio: 0.65,
                       mainAxisSpacing: 10,
                       crossAxisSpacing: 10,
                     ),
                     delegate: SliverChildBuilderDelegate(
-                          (BuildContext context, int index) {
+                      (BuildContext context, int index) {
                         return RecentSingleProduct(
                           recentSingleProdName: productList[index]["name"],
                           recentSingleProdImage: productList[index]["img_url"],
@@ -104,7 +105,7 @@ class HomeScreen extends StatelessWidget {
             ),
           ),
           const SliverToBoxAdapter(
-            child: SizedBox(height: 85), // Adjust the height as needed
+            child: SizedBox(height: 85),
           ),
         ],
       ),
@@ -113,10 +114,10 @@ class HomeScreen extends StatelessWidget {
 
   Future<List<Map<String, dynamic>>> loadProducts(BuildContext context) async {
     final String jsonProducts =
-    await DefaultAssetBundle.of(context).loadString('Flask/products.json');
+        await DefaultAssetBundle.of(context).loadString('Flask/products.json');
     final List<dynamic> parsedJson = jsonDecode(jsonProducts);
     final List<Map<String, dynamic>> products =
-    parsedJson.cast<Map<String, dynamic>>();
+        parsedJson.cast<Map<String, dynamic>>();
 
     products.shuffle();
     return products.take(6).toList();
@@ -136,59 +137,74 @@ class RecentSingleProduct extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(10),
-        color: Colors.white,
-        boxShadow: [
-          BoxShadow(
-            color: Colors.grey.withOpacity(0.5),
-            spreadRadius: 2,
-            blurRadius: 3,
-            offset: const Offset(0, 2),
-          ),
-        ],
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          ClipRRect(
-            borderRadius: BorderRadius.circular(10),
-            child: CachedNetworkImage(
+    return GestureDetector(
+      onTap: () {
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => ProductDetailScreen(
+              title: recentSingleProdName!,
+              price: recentSingleProdPrice!,
               imageUrl: recentSingleProdImage!,
-              height: 250,
-              width: double.infinity,
-              fit: BoxFit.cover,
-              placeholder: (context, url) => const Center(child: CircularProgressIndicator()),
-              errorWidget: (context, url, error) => const Icon(Icons.error),
             ),
           ),
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  recentSingleProdName!,
-                  style: GoogleFonts.montserrat(
-                    fontSize: 16,
-                    fontWeight: FontWeight.bold,
-                  ),
-                  maxLines: 1,
-                  overflow: TextOverflow.ellipsis,
-                ),
-                const SizedBox(height: 4),
-                Text(
-                  '\$$recentSingleProdPrice',
-                  style: GoogleFonts.montserrat(
-                    fontSize: 17,
-                    color: Colors.grey[700],
-                  ),
-                ),
-              ],
+        );
+      },
+      child: Container(
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(10),
+          color: Colors.white,
+          boxShadow: [
+            BoxShadow(
+              color: Colors.grey.withOpacity(0.5),
+              spreadRadius: 2,
+              blurRadius: 3,
+              offset: const Offset(0, 2),
             ),
-          ),
-        ],
+          ],
+        ),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            ClipRRect(
+              borderRadius: BorderRadius.circular(10),
+              child: CachedNetworkImage(
+                imageUrl: recentSingleProdImage!,
+                height: 250,
+                width: double.infinity,
+                fit: BoxFit.cover,
+                placeholder: (context, url) =>
+                    const Center(child: CircularProgressIndicator()),
+                errorWidget: (context, url, error) => const Icon(Icons.error),
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    recentSingleProdName!,
+                    style: GoogleFonts.montserrat(
+                      fontSize: 16,
+                      fontWeight: FontWeight.bold,
+                    ),
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis,
+                  ),
+                  const SizedBox(height: 4),
+                  Text(
+                    '\$$recentSingleProdPrice',
+                    style: GoogleFonts.montserrat(
+                      fontSize: 17,
+                      color: Colors.grey[700],
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }

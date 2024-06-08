@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import '../services/api_service.dart';
 import '../models/cart_item.dart';
 
+
 class CartScreen extends StatefulWidget {
   @override
   _CartScreenState createState() => _CartScreenState();
@@ -10,7 +11,6 @@ class CartScreen extends StatefulWidget {
 class _CartScreenState extends State<CartScreen> {
   String _message = '';
   List<CartItem> _cart = [];
-
   final ApiService apiService = ApiService();
 
   @override
@@ -19,43 +19,31 @@ class _CartScreenState extends State<CartScreen> {
     fetchCart();
   }
 
-  Future<void> fetchCart() async {
+  void fetchCart() async {
     try {
-      List<CartItem> cart = await apiService.fetchCart();
+      final items = await apiService.fetchCart();
       setState(() {
-        _cart = cart;
+        _cart = items;
+        _message = _cart.isEmpty ? 'El carrito está vacío' : '';
       });
     } catch (e) {
       setState(() {
-        _message = 'Failed to load cart';
+        _message = 'Error al cargar el carrito: $e';
       });
     }
   }
 
-  Future<void> addToCart(int index) async {
-    try {
-      await apiService.addToCart(index);
-      fetchCart();
-      setState(() {
-        _message = 'Item added to cart';
-      });
-    } catch (e) {
-      setState(() {
-        _message = 'Failed to add item to cart';
-      });
-    }
-  }
-
-  Future<void> deleteFromCart(String nombre, String color, String talle) async {
+  void deleteFromCart(String nombre, String color, String talle) async {
     try {
       await apiService.deleteFromCart(nombre, color, talle);
-      fetchCart();
       setState(() {
-        _message = 'Item deleted from cart';
+        _cart.removeWhere((item) =>
+            item.nombreProducto == nombre && item.color == color && item.talle == talle);
+        _message = 'Producto eliminado del carrito';
       });
     } catch (e) {
       setState(() {
-        _message = 'Failed to delete item from cart';
+        _message = 'Error al eliminar el producto: $e';
       });
     }
   }
@@ -71,8 +59,7 @@ class _CartScreenState extends State<CartScreen> {
               fontFamily: 'TrajanPro',
               fontWeight: FontWeight.bold,
               fontSize: 30,
-              )
-          ),
+            )),
       ),
       body: Column(
         children: [
@@ -94,10 +81,6 @@ class _CartScreenState extends State<CartScreen> {
             ),
           ),
         ],
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () => addToCart(1),
-        child: const Icon(Icons.add),
       ),
     );
   }
