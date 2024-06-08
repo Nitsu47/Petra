@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import '../services/api_service.dart';
 
 class ProductDetailScreen extends StatelessWidget {
@@ -25,31 +26,55 @@ class ProductDetailScreen extends StatelessWidget {
           Image.network(
             imageUrl,
             width: double.infinity,
-            height: 250,
+            height: 600,
             fit: BoxFit.cover,
           ),
-          Padding(
-            padding: const EdgeInsets.all(16.0),
-            child: Text(
-              title,
-              style: const TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+          Center(
+            child: Padding(
+              padding: const EdgeInsets.all(16.0),
+              child: Text(
+                title,
+                style: GoogleFonts.montserrat(
+                  fontSize: 25,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
             ),
           ),
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 16.0),
-            child: Text(
-              '\$$price',
-              style: const TextStyle(fontSize: 20, color: Colors.grey),
+          Center(
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 16.0),
+              child: Text(
+                '\$$price',
+                style: GoogleFonts.montserrat(
+                  fontSize: 25,
+                  color: Colors.grey[700],
+                ),
+              ),
             ),
           ),
-          Padding(
-            padding: const EdgeInsets.all(16.0),
-            child: ElevatedButton(
-              onPressed: () {
-                final scaffoldContext = context;
-                addToCart(scaffoldContext);
-              },
-              child: const Text('Añadir al carrito'),
+          const SizedBox(height: 60),
+          Align(
+            alignment: Alignment.bottomCenter,
+            child: Padding(
+              padding: const EdgeInsets.all(16.0),
+              child: ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                  foregroundColor: Colors.white,
+                  backgroundColor: Colors.black,
+                  padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                  elevation: 4,
+                  minimumSize: const Size(400, 60),
+                ),
+                onPressed: () {
+                  final scaffoldContext = context;
+                  addToCart(scaffoldContext);
+                },
+                child: const Text('Añadir al carrito'),
+              ),
             ),
           ),
         ],
@@ -60,19 +85,19 @@ class ProductDetailScreen extends StatelessWidget {
   void addToCart(BuildContext context) {
     final apiService = ApiService();
     apiService.addToCart(/*unfinished*/)
-      .then((_) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(
-            content: Text('Producto añadido al carrito'),
-          ),
-        );
-      })
-      .catchError((e) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(
-            content: Text('Error: $e'),
-          ),
-        );
-      });
+        .then((_) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text('Producto añadido al carrito'),
+        ),
+      );
+    })
+        .catchError((e) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text('Error: $e'),
+        ),
+      );
+    });
   }
 }
