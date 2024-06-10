@@ -95,6 +95,7 @@ class HomeScreen extends StatelessWidget {
                           recentSingleProdName: productList[index]["name"],
                           recentSingleProdImage: productList[index]["img_url"],
                           recentSingleProdPrice: productList[index]["precio"],
+                          index: index,
                         );
                       },
                       childCount: productList.length,
@@ -128,11 +129,13 @@ class RecentSingleProduct extends StatelessWidget {
   final String? recentSingleProdName;
   final String? recentSingleProdImage;
   final String? recentSingleProdPrice;
+  final int index;
 
   RecentSingleProduct({
     this.recentSingleProdName,
     this.recentSingleProdImage,
     this.recentSingleProdPrice,
+    required this.index,
   });
 
   @override
@@ -146,6 +149,7 @@ class RecentSingleProduct extends StatelessWidget {
               title: recentSingleProdName!,
               price: recentSingleProdPrice!,
               imageUrl: recentSingleProdImage!,
+              index: index,
             ),
           ),
         );

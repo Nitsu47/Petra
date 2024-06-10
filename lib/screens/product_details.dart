@@ -6,12 +6,14 @@ class ProductDetailScreen extends StatelessWidget {
   final String title;
   final String price;
   final String imageUrl;
+  final int index;
 
   const ProductDetailScreen({
     Key? key,
     required this.title,
     required this.price,
     required this.imageUrl,
+    required this.index,
   }) : super(key: key);
 
   @override
@@ -84,7 +86,7 @@ class ProductDetailScreen extends StatelessWidget {
 
   void addToCart(BuildContext context) {
     final apiService = ApiService();
-    apiService.addToCart(/*unfinished*/)
+    apiService.addToCart(index)
         .then((_) {
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(

@@ -24,7 +24,7 @@ class _SearchpageState extends State<Searchpage> {
 
   Future<void> _loadProducts() async {
     final String jsonProducts =
-    await DefaultAssetBundle.of(context).loadString('Flask/products.json');
+        await DefaultAssetBundle.of(context).loadString('Flask/products.json');
     final List<dynamic> parsedJson = jsonDecode(jsonProducts);
     _products = parsedJson.cast<Map<String, dynamic>>();
     setState(() {
@@ -36,7 +36,7 @@ class _SearchpageState extends State<Searchpage> {
     setState(() {
       _filteredProducts = _products
           .where((product) =>
-          product['name'].toLowerCase().contains(query.toLowerCase()))
+              product['name'].toLowerCase().contains(query.toLowerCase()))
           .toList();
     });
   }
@@ -45,7 +45,7 @@ class _SearchpageState extends State<Searchpage> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Padding(
-        padding: const EdgeInsets.all(10.0), // Adjust padding here
+        padding: const EdgeInsets.all(10.0),
         child: CustomScrollView(
           slivers: [
             const SliverAppBar(
@@ -83,7 +83,7 @@ class _SearchpageState extends State<Searchpage> {
               child: SizedBox(height: 5),
             ),
             SliverPadding(
-              padding: EdgeInsets.only(bottom: 80), // Adjust padding as needed
+              padding: EdgeInsets.only(bottom: 80),
               sliver: SliverGrid(
                 gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                   crossAxisCount: 2,
@@ -92,13 +92,13 @@ class _SearchpageState extends State<Searchpage> {
                   crossAxisSpacing: 10,
                 ),
                 delegate: SliverChildBuilderDelegate(
-                      (BuildContext context, int index) {
+                  (BuildContext context, int index) {
                     return RecentSingleProduct(
                       recentSingleProdName: _filteredProducts[index]["name"],
-                      recentSingleProdImage:
-                      _filteredProducts[index]["img_url"],
-                      recentSingleProdPrice:
-                      _filteredProducts[index]["precio"],
+                      recentSingleProdImage: _filteredProducts[index]
+                          ["img_url"],
+                      recentSingleProdPrice: _filteredProducts[index]["precio"],
+                      index: index,
                     );
                   },
                   childCount: _filteredProducts.length,
@@ -116,11 +116,13 @@ class RecentSingleProduct extends StatelessWidget {
   final String? recentSingleProdName;
   final String? recentSingleProdImage;
   final String? recentSingleProdPrice;
+  final int index;
 
   RecentSingleProduct({
     this.recentSingleProdName,
     this.recentSingleProdImage,
     this.recentSingleProdPrice,
+    required this.index,
   });
 
   @override
@@ -134,6 +136,7 @@ class RecentSingleProduct extends StatelessWidget {
               title: recentSingleProdName!,
               price: recentSingleProdPrice!,
               imageUrl: recentSingleProdImage!,
+              index: index,
             ),
           ),
         );
@@ -162,7 +165,7 @@ class RecentSingleProduct extends StatelessWidget {
                 width: double.infinity,
                 fit: BoxFit.cover,
                 placeholder: (context, url) =>
-                const Center(child: CircularProgressIndicator()),
+                    const Center(child: CircularProgressIndicator()),
                 errorWidget: (context, url, error) => const Icon(Icons.error),
               ),
             ),
