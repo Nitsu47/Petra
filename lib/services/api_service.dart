@@ -3,7 +3,7 @@ import 'dart:convert';
 import '../models/cart_item.dart';
 
 class ApiService {
-  static const String baseUrl = 'http://2800:a4:1eb5:800:40e2:227c:31ce:de4e:5000';
+  static const String baseUrl = 'http://127.0.0.1:5000';
 
   Future<List<CartItem>> fetchCart() async {
     final response = await http.get(Uri.parse('$baseUrl/carrito'));
@@ -16,15 +16,20 @@ class ApiService {
   }
 
   Future<void> addToCart(int index) async {
-    final response = await http.get(Uri.parse('$baseUrl/a%C3%B1adir_al_carrito/$index'));
+    final String encodedIndex = Uri.encodeComponent(index.toString());
+    final String encodedPath = Uri.encodeComponent('añadir_al_carrito');
+    final response = await http.get(Uri.parse('$baseUrl/$encodedPath/$encodedIndex'));
     if (response.statusCode != 200) {
       throw Exception('Failed to add item to cart');
     }
   }
 
   Future<void> deleteFromCart(String nombre, String color, String talle) async {
+    final String encodedNombre = Uri.encodeComponent(nombre);
+    final String encodedColor = Uri.encodeComponent(color);
+    final String encodedTalle = Uri.encodeComponent(talle);
     final response = await http.get(Uri.parse(
-      '$baseUrl/eliminar_producto?Nombre_Producto=$nombre&Color=$color&Talle=$talle'));
+      '$baseUrl/eliminar_producto?Nombre_Producto=$encodedNombre&Color=$encodedColor&Talle=$encodedTalle'));
     if (response.statusCode != 200) {
       throw Exception('Failed to delete item from cart');
     }
