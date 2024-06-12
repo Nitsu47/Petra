@@ -30,7 +30,7 @@ def carrito():
 def añadir_al_carrito(index):
     with open('products.json', 'r') as f:
         data = json.load(f)
-    product = data[index - 1]
+    product = data[index]
     
     new_product = {
         "name": product["name"],
@@ -58,7 +58,7 @@ def añadir_al_carrito(index):
         session["cart"][0]["productos"] += 1
     
     session.modified = True
-    return redirect(url_for('home'))
+    return jsonify({"message": "Producto añadido al carrito"}), 200
 
 @app.route("/vaciar_carrito")
 def vaciar_carrito():
