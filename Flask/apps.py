@@ -22,8 +22,9 @@ def carrito():
                 "productos": 0,
             },
             ]
-    cart = session["cart"]
-    return render_template('carrito.html', products=cart, resumen=cart[0])
+    cart = session["cart"][1:]
+    return jsonify(cart)
+    
 
 @app.route("/añadir_al_carrito/<int:index>")
 def añadir_al_carrito(index):
