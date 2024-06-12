@@ -4,7 +4,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 
 class LoginPage extends StatefulWidget {
   final VoidCallback showRegisterPage;
-  const LoginPage({super.key,required this.showRegisterPage});
+  const LoginPage({super.key, required this.showRegisterPage});
 
   @override
   State<LoginPage> createState() => _LoginPageState();
@@ -13,12 +13,26 @@ class LoginPage extends StatefulWidget {
 class _LoginPageState extends State<LoginPage> {
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
+  String _errorMessage = '';
 
-  Future signIn() async {
-    await FirebaseAuth.instance.signInWithEmailAndPassword(
+  Future<void> signIn() async {
+    try {
+      await FirebaseAuth.instance.signInWithEmailAndPassword(
         email: _emailController.text.trim(),
         password: _passwordController.text.trim(),
-    );
+      );
+      // Navigate to the next screen if login is successful
+    } on FirebaseAuthException catch (e) {
+      setState(() {
+        if (e.code == 'user-not-found') {
+          _errorMessage = 'No user found for that email.';
+        } else if (e.code == 'wrong-password') {
+          _errorMessage = 'Wrong password provided for that user.';
+        } else {
+          _errorMessage = 'The email and/or password are incorrect';
+        }
+      });
+    }
   }
 
   @override
@@ -128,6 +142,19 @@ class _LoginPageState extends State<LoginPage> {
                   ),
                 ),
               ),
+              const SizedBox(height: 15),
+              // error message
+              if (_errorMessage.isNotEmpty)
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 25.0),
+                  child: Text(
+                    _errorMessage,
+                    style: GoogleFonts.inter(
+                      color: Colors.red,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ),
               const SizedBox(height: 15),
               // not a member? register
               Row(
