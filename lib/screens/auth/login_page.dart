@@ -25,11 +25,11 @@ class _LoginPageState extends State<LoginPage> {
     } on FirebaseAuthException catch (e) {
       setState(() {
         if (e.code == 'user-not-found') {
-          _errorMessage = 'No user found for that email.';
+          _errorMessage = 'Usuario no encontrado.';
         } else if (e.code == 'wrong-password') {
-          _errorMessage = 'Wrong password provided for that user.';
+          _errorMessage = 'La contraseña es incorrecto.';
         } else {
-          _errorMessage = 'The email and/or password are incorrect';
+          _errorMessage = 'El mail o la contraseña no coinciden.';
         }
       });
     }
