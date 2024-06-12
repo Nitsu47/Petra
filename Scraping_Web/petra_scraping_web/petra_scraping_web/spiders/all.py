@@ -7,9 +7,6 @@ class PetraSpider(CrawlSpider):
     name = 'petrastore'
     allowed_domains = ['petrastore.com.uy']
     start_urls = [f'https://petrastore.com.uy/coleccion?js=1&pag={page}' for page in range(1, 27)]
-    custom_settings = {
-        'DOWNLOAD_DELAY': 2,  # Agregar un retraso de 2 segundos entre las solicitudes
-    }
     rules = (
         Rule(
             LinkExtractor(
@@ -26,7 +23,16 @@ class PetraSpider(CrawlSpider):
         item["id"] = response.xpath('//div[@class="cod"]/text()').get()
         item["name"] = response.xpath('//h1/text()').get()
         item["precio"] = response.xpath('//div[@id="fichaProducto"]/div/div/div/strong/span[2]/text()').get()
-
+        item["descripcion"] = response.xpath('//div[@id="fichaProducto"]/div[1]/div[4]/p/text()').get()
+        all_talles = response.xpath('//ul[@id="lstTalles"]/li[@class="it"]')
+        for index, talle in enumerate(all_talles, start=1):
+            data_stock = talle.xpath('./label/input/@data-stock').get()
+            data_cpre = talle.xpath('./label/input/@data-cpre').get()
+            
+            item[f"talle_{index}"] = {
+                'data_stock': int(data_stock),
+                'data_cpre': data_cpre
+            }
         img_urls = response.xpath('//img/@data-src-g').getall()
         img_urls = [response.urljoin(url) for url in img_urls]
 
