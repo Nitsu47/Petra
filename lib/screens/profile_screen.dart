@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -185,10 +186,21 @@ class _ProfileScreen extends State<ProfileScreen> {
                 border: OutlineInputBorder(),
               ),
             ),
-            const SizedBox(height: 20),
-            Center(
-              child: ElevatedButton.icon(
+            const SizedBox(height: 16),
+              ElevatedButton.icon(
                 onPressed: _saveData,
+                icon: const Icon(Icons.save),
+                label: const Text('Guardar'),
+                style: ElevatedButton.styleFrom(
+                  foregroundColor: Colors.black, backgroundColor: Colors.white,
+                  side: const BorderSide(color: Colors.black),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(8.0),
+                  ),
+                ),
+              ),
+              ElevatedButton.icon(
+                onPressed: FirebaseAuth.instance.signOut,
                 icon: const Icon(Icons.logout),
                 label: const Text('Cerrar Sesión'),
                 style: ElevatedButton.styleFrom(
@@ -199,7 +211,7 @@ class _ProfileScreen extends State<ProfileScreen> {
                   ),
                 ),
               ),
-            ),
+            const SizedBox(height: 65),
           ],
         ),
       ),
