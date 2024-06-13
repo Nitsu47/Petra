@@ -27,7 +27,7 @@ class _LoginPageState extends State<LoginPage> {
         if (e.code == 'user-not-found') {
           _errorMessage = 'Usuario no encontrado.';
         } else if (e.code == 'wrong-password') {
-          _errorMessage = 'La contraseña es incorrecto.';
+          _errorMessage = 'La contraseña es incorrecta.';
         } else {
           _errorMessage = 'El mail o la contraseña no coinciden.';
         }
