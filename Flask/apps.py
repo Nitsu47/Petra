@@ -2,9 +2,11 @@
 from flask import Flask, session, url_for, redirect, request, jsonify, render_template
 from markupsafe import escape
 import json
+from flask_cors import CORS
 
 
 app = Flask(__name__)
+CORS(app)
 app.secret_key = "Banana"
 
 @app.route('/')

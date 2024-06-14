@@ -17,5 +17,12 @@ class PetraScrapingWebItem(scrapy.Item):
     img_url_5 = scrapy.Field()
     precio = scrapy.Field()
     id = scrapy.Field()
-    avilables_sizes = scrapy.Field()
+    descripcion = scrapy.Field()
+    talle_1 = scrapy.Field()
+    talle_2 = scrapy.Field()
+    talle_3 = scrapy.Field()
+    talle_4 = scrapy.Field()
+    talle_5 = scrapy.Field()
+    talle_6 = scrapy.Field()
+    talle_7 = scrapy.Field()
     pass
