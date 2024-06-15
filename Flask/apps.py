@@ -24,7 +24,7 @@ def carrito():
                 "productos": 0,
             },
             ]
-    cart = session["cart"][1:]
+    cart = session["cart"]
     return jsonify(cart)
     
 
@@ -60,7 +60,7 @@ def añadir_al_carrito(index):
         session["cart"][0]["productos"] += 1
     
     session.modified = True
-    return jsonify({"message": "Producto añadido al carrito"}), 200
+    return redirect(url_for('carrito'))
 
 @app.route("/vaciar_carrito")
 def vaciar_carrito():
