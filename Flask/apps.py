@@ -2,9 +2,11 @@
 from flask import Flask, session, url_for, redirect, request, jsonify, render_template
 from markupsafe import escape
 import json
+from flask_cors import CORS
 
 
 app = Flask(__name__)
+CORS(app)
 app.secret_key = "Banana"
 
 @app.route('/')
@@ -22,7 +24,7 @@ def carrito():
                 "productos": 0,
             },
             ]
-    cart = session["cart"][1:]
+    cart = session["cart"]
     return jsonify(cart)
     
 
@@ -58,7 +60,7 @@ def añadir_al_carrito(index):
         session["cart"][0]["productos"] += 1
     
     session.modified = True
-    return jsonify({"message": "Producto añadido al carrito"}), 200
+    return redirect(url_for('carrito'))
 
 @app.route("/vaciar_carrito")
 def vaciar_carrito():

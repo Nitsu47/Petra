@@ -14,7 +14,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
+      title: 'Flutter Dem',
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
@@ -304,17 +304,17 @@ class _ProfileScreen extends State<ProfileScreen> {
               ),
             ),
             const SizedBox(height: 20),
-        Center(
-          child: ElevatedButton.icon(
-            onPressed: FirebaseAuth.instance.signOut,
-            icon: const Icon(Icons.logout),
-            label: const Text('Cerrar Sesión'),
-            style: ElevatedButton.styleFrom(
-              foregroundColor: Colors.black, backgroundColor: Colors.white,
-              side: const BorderSide(color: Colors.black),
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(8.0),
-              ),
+            Center(
+              child: ElevatedButton.icon(
+                onPressed: FirebaseAuth.instance.signOut,
+                icon: const Icon(Icons.logout),
+                label: const Text('Cerrar Sesión'),
+                style: ElevatedButton.styleFrom(
+                  foregroundColor: Colors.black, backgroundColor: Colors.white,
+                  side: const BorderSide(color: Colors.black),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(8.0),
+                  ),
                 ),
               ),
             ),
@@ -325,8 +325,6 @@ class _ProfileScreen extends State<ProfileScreen> {
     );
   }
 }
-
-
 
 
 

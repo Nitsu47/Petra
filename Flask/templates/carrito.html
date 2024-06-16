@@ -31,8 +31,6 @@
         <thead>
             <tr>
                 <th>Nombre</th>
-                <th>Color</th>
-                <th>Talle</th>
                 <th>Precio (IVA incluido)</th>
                 <th>Cantidad</th>
                 <th>Acción</th>
@@ -41,16 +39,12 @@
         <tbody>
             {% for product in products %}
             <tr>
-                <td>{{ product.Nombre_Producto }}</td>
-                <td>{{ product.Color }}</td>
-                <td>{{ product.Talle }}</td>
-                <td>{{ product.PRRECIO_IVA_INC }}</td>
+                <td>{{ product.name }}</td>
+                <td>{{ product.precio }}</td>
                 <td>{{ product.Cantidad }}</td>
                 <td>
                     <form action="/eliminar_producto" method="GET">
-                        <input type="hidden" name="Nombre_Producto" value="{{ product.Nombre_Producto }}">
-                        <input type="hidden" name="Color" value="{{ product.Color }}">
-                        <input type="hidden" name="Talle" value="{{ product.Talle }}">
+                        <input type="hidden" name="name" value="{{ product.name }}">
                         <button type="submit">Eliminar</button>
                     </form>
                 </td>
