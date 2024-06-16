@@ -9,6 +9,8 @@ import '../screens/product_details.dart';
 import 'dart:convert';
 
 class HomeScreen extends StatelessWidget {
+  const HomeScreen({super.key});
+
   @override
   Widget build(BuildContext context) {
     final controllerProvider = Provider.of<VideoControllerProvider>(context);
@@ -131,7 +133,7 @@ class RecentSingleProduct extends StatelessWidget {
   final String? recentSingleProdPrice;
   final int index;
 
-  RecentSingleProduct({
+  const RecentSingleProduct({super.key,
     this.recentSingleProdName,
     this.recentSingleProdImage,
     this.recentSingleProdPrice,

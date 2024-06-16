@@ -30,12 +30,10 @@ class _ConfirmadoScreenState extends State<ConfirmadoScreen> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Container(
-              child: const Text(
-                '- Pedido Enviado -',
-                style: TextStyle(
-                  fontSize: 50,
-                ),
+            const Text(
+              '- Pedido Enviado -',
+              style: TextStyle(
+                fontSize: 50,
               ),
             ),
             const Text(
@@ -50,7 +48,7 @@ class _ConfirmadoScreenState extends State<ConfirmadoScreen> {
               height: 60,
               child: ElevatedButton(
                 onPressed: () {
-                  Navigator.push(context, MaterialPageRoute(builder: (context)=>MainPage()));
+                  Navigator.push(context, MaterialPageRoute(builder: (context)=>const MainPage()));
                 },
                 style: ElevatedButton.styleFrom(
                   padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),

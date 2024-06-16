@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:petratest/screens/Confirmado_screen.dart';
+import 'package:petratest/screens/confirmado_screen.dart';
 
 class PedidoScreen extends StatefulWidget {
   const PedidoScreen({super.key});
