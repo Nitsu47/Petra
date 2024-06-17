@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:petratest/screens/Pedido_screen.dart';
 import '../services/api_service.dart';
 import '../models/cart_item.dart';
 
@@ -63,23 +64,39 @@ class _CartScreenState extends State<CartScreen> {
               fontSize: 30,
             )),
       ),
-      body: Column(
+      body: Stack(
         children: [
-          Text(_message),
-          Expanded(
-            child: ListView.builder(
-              itemCount: _cart.length,
-              itemBuilder: (context, index) {
-                var item = _cart[index];
-                return ListTile(
-                  title: Text(item.nombreProducto),
-                  subtitle: Text('Cantidad: ${item.cantidad}'),
-                  trailing: IconButton(
-                    icon: const Icon(Icons.delete),
-                    onPressed: () => deleteFromCart(item.nombreProducto, item.color, item.talle),
-                  ),
-                );
+          Column(
+            children: [
+              Text(_message),
+              Expanded(
+                child: ListView.builder(
+                  itemCount: _cart.length,
+                  itemBuilder: (context, index) {
+                    var item = _cart[index];
+                    return ListTile(
+                      title: Text(item.nombreProducto),
+                      subtitle: Text('Cantidad: ${item.cantidad}'),
+                      trailing: IconButton(
+                        icon: const Icon(Icons.delete),
+                        onPressed: () => deleteFromCart(item.nombreProducto, item.color, item.talle),
+                      ),
+                    );
+                  },
+                ),
+              ),
+            ],
+          ),
+          Positioned(
+            bottom: 80,
+            right: 16,
+            child: FloatingActionButton.extended(
+              onPressed: () {
+                Navigator.push(context, MaterialPageRoute(builder: (context)=>const PedidoScreen()));
               },
+              label: const Text('Realizar Pedido', style: TextStyle(color: Colors.white),),
+              icon: const Icon(Icons.shopping_cart_checkout, color: Colors.white),
+              backgroundColor: Colors.black,
             ),
           ),
         ],
