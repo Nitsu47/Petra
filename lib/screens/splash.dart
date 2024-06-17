@@ -1,4 +1,3 @@
-import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:petratest/screens/auth/main_page.dart';
 
@@ -19,24 +18,23 @@ class _SplashState extends State<Splash> {
   }
 
   _navigatetohome()async{
-    await Future.delayed(Duration(seconds: 2),() {});
-    Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=>MainPage()));
+    await Future.delayed(const Duration(seconds: 2),() {});
+    Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=>const MainPage()));
   }
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return const Scaffold(
       body: Center(
-        child: Container(
-          child: Text(
-            'PETRA',
-            style: TextStyle(
-              fontFamily: 'TrajanPro',
-              fontWeight: FontWeight.bold,
-              fontSize: 70,
-            ),
+        child: Text(
+          'PETRA',
+          style: TextStyle(
+            fontFamily: 'TrajanPro',
+            fontWeight: FontWeight.bold,
+            fontSize: 70,
+          ),
 
-          ),),
+        ),
       ),
     );
   }

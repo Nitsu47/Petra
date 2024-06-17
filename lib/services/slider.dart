@@ -1,7 +1,5 @@
 import 'package:carousel_slider/carousel_slider.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/painting.dart';
 
 class ProductSlider extends StatefulWidget {
   const ProductSlider({super.key});
@@ -41,7 +39,7 @@ class _ProductSliderState extends State<ProductSlider> {
         height: 400,
         autoPlay: true,
         enlargeCenterPage: true,
-        autoPlayInterval: Duration(seconds: 2),
+        autoPlayInterval: const Duration(seconds: 2),
         aspectRatio: 16/9,
         viewportFraction: 1,
       ),

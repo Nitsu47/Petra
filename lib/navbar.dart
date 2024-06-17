@@ -16,9 +16,9 @@ class _NavBarState extends State<NavBar> {
   int _selectedIndex = 0;
 
   final List<Widget> _widgetOptions = <Widget>[
-    HomeScreen(),
-    Searchpage(), // Placeholder for Search Screen
-    CartScreen(),
+    const HomeScreen(),
+    const Searchpage(), // Placeholder for Search Screen
+    const CartScreen(),
     const ProfileScreen(), // Placeholder for Profile Screen
   ];
 

@@ -12,15 +12,23 @@
     <thead>
     <tr>
         <th>Nombre</th>
+        <th>Color</th>
+        <th>Talle</th>
         <th>Precio (IVA incluido)</th>
+        <th>Stock en Depósito</th>
+        <th>Stock</th>
         <th>Acción</th> <!-- Nueva columna para el botón de añadir al carrito -->
     </tr>
     </thead>
     <tbody>
     {% for product in products %}
     <tr>
-        <td>{{ product.name }}</td>
-        <td>{{ product.precio }}</td>
+        <td>{{ product.Nombre_Producto }}</td>
+        <td>{{ product.Color }}</td>
+        <td>{{ product.Talle }}</td>
+        <td>{{ product.PRRECIO_IVA_INC }}</td>
+        <td>{{ product.Stock_Deposito }}</td>
+        <td>{{ product.Stock }}</td>
         <td><a href="/añadir_al_carrito/{{ loop.index }}">Añadir al carrito</a></td> <!-- Agrega un enlace con el índice del bucle -->
     </tr>
     {% endfor %}

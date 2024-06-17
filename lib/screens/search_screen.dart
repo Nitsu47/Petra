@@ -2,11 +2,12 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:petratest/screens/product_details.dart';
-import 'package:provider/provider.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'dart:convert';
 
 class Searchpage extends StatefulWidget {
+  const Searchpage({super.key});
+
   @override
   _SearchpageState createState() => _SearchpageState();
 }
@@ -69,7 +70,7 @@ class _SearchpageState extends State<Searchpage> {
                   child: TextField(
                     decoration: InputDecoration(
                       hintText: 'Buscar...',
-                      prefixIcon: Icon(Icons.search),
+                      prefixIcon: const Icon(Icons.search),
                       border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(10),
                       ),
@@ -83,7 +84,7 @@ class _SearchpageState extends State<Searchpage> {
               child: SizedBox(height: 5),
             ),
             SliverPadding(
-              padding: EdgeInsets.only(bottom: 80),
+              padding: const EdgeInsets.only(bottom: 80),
               sliver: SliverGrid(
                 gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                   crossAxisCount: 2,
@@ -118,7 +119,7 @@ class RecentSingleProduct extends StatelessWidget {
   final String? recentSingleProdPrice;
   final int index;
 
-  RecentSingleProduct({
+  const RecentSingleProduct({super.key, 
     this.recentSingleProdName,
     this.recentSingleProdImage,
     this.recentSingleProdPrice,

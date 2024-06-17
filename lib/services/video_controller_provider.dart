@@ -16,8 +16,6 @@ class VideoControllerProvider extends ChangeNotifier {
         _controller.play();
         _controller.setLooping(true);
         notifyListeners();
-      }).catchError((error) {
-        print('Error initializing video: $error');
       });
   }
 
