@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -8,13 +9,14 @@ void main() async {
   await Firebase.initializeApp();
   runApp(const MyApp());
 }
+
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Dem',
+      title: 'Flutter Demo',
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
@@ -22,6 +24,7 @@ class MyApp extends StatelessWidget {
     );
   }
 }
+
 class ProfileScreen extends StatefulWidget {
   const ProfileScreen({super.key});
 
@@ -32,14 +35,10 @@ class ProfileScreen extends StatefulWidget {
 class _ProfileScreen extends State<ProfileScreen> {
   final TextEditingController _nombreController = TextEditingController();
   final TextEditingController _apellidoController = TextEditingController();
-
   final TextEditingController _documentoController = TextEditingController();
-
   final TextEditingController _sexoController = TextEditingController();
   final TextEditingController _mailController = TextEditingController();
-
   final TextEditingController _contraseniaController = TextEditingController();
-
   final TextEditingController _telefonoController = TextEditingController();
   final TextEditingController _tarjetaclubController = TextEditingController();
 
@@ -80,19 +79,46 @@ class _ProfileScreen extends State<ProfileScreen> {
     User? user = FirebaseAuth.instance.currentUser;
     if (user != null) {
       _userId = user.uid;
-      DocumentSnapshot userData = await FirebaseFirestore.instance.collection('users').doc(_userId).get();
 
-      if (userData.exists) {
-        Map<String, dynamic>? data = userData.data() as Map<String, dynamic>?;
-        if (data != null) {
-          _nombreController.text = data['nombre'] ?? '';
-          _apellidoController.text = data['apellido'] ?? '';
-          _documentoController.text = data['documento'] ?? '';
-          _sexoController.text = data['sexo'] ?? '';
-          _mailController.text = data['mail'] ?? '';
-          _contraseniaController.text = data['contrasenia'] ?? '';
-          _telefonoController.text = data['telefono'] ?? '';
-          _tarjetaclubController.text = data['tarjetaclub'] ?? '';
+      int retryCount = 0;
+      const maxRetries = 5;
+      const initialDelay = Duration(seconds: 1);
+
+      while (retryCount < maxRetries) {
+        try {
+          DocumentSnapshot userData = await FirebaseFirestore.instance.collection('users').doc(_userId).get();
+
+          if (userData.exists) {
+            Map<String, dynamic>? data = userData.data() as Map<String, dynamic>?;
+            if (data != null && mounted) {  // Verifica si el widget está montado antes de llamar a setState
+              setState(() {
+                _nombreController.text = data['nombre'] ?? '';
+                _apellidoController.text = data['apellido'] ?? '';
+                _documentoController.text = data['documento'] ?? '';
+                _sexoController.text = data['sexo'] ?? '';
+                _mailController.text = data['mail'] ?? '';
+                _contraseniaController.text = data['contrasenia'] ?? '';
+                _telefonoController.text = data['telefono'] ?? '';
+                _tarjetaclubController.text = data['tarjetaclub'] ?? '';
+              });
+            }
+          }
+          break;  // Si la solicitud es exitosa, salimos del bucle
+        } catch (e) {
+          if (retryCount >= maxRetries - 1) {
+            // Si hemos alcanzado el número máximo de reintentos, mostramos un mensaje de error
+            if (mounted) {
+              ScaffoldMessenger.of(context).showSnackBar(
+                const SnackBar(
+                  content: Text('Error al cargar los datos. Inténtelo de nuevo más tarde.'),
+                ),
+              );
+            }
+            break;
+          }
+          // Esperamos un tiempo antes de reintentar
+          await Future.delayed(initialDelay * (1 << retryCount));  // Exponential backoff
+          retryCount++;
         }
       }
     }
@@ -246,7 +272,7 @@ class _ProfileScreen extends State<ProfileScreen> {
             ),
             const SizedBox(height: 16),
             const Text(
-              'telefono',
+              'Telefono',
               style: TextStyle(
                 fontWeight: FontWeight.bold,
                 fontSize: 16,
@@ -318,7 +344,7 @@ class _ProfileScreen extends State<ProfileScreen> {
                 ),
               ),
             ),
-            const SizedBox(height: 70,)
+            const SizedBox(height: 70)
           ],
         ),
       ),
