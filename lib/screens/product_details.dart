@@ -28,7 +28,7 @@ class ProductDetailScreen extends StatelessWidget {
           Image.network(
             imageUrl,
             width: double.infinity,
-            height: 550,
+            height: 497,
             fit: BoxFit.cover,
           ),
           Center(

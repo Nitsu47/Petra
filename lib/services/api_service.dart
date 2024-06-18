@@ -3,7 +3,7 @@ import 'dart:convert';
 import '../models/cart_item.dart';
 
 class ApiService {
-  static const String baseUrl = 'http://192.168.1.12:5000';
+  static const String baseUrl = 'http://192.168.1.18:5000';
 
   Future<List<CartItem>> fetchCart() async {
     final response = await http.get(Uri.parse('$baseUrl/carrito'));
