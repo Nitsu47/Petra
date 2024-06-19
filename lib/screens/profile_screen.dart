@@ -8,13 +8,14 @@ void main() async {
   await Firebase.initializeApp();
   runApp(const MyApp());
 }
+
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Dem',
+      title: 'Flutter Demo',
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
@@ -22,6 +23,7 @@ class MyApp extends StatelessWidget {
     );
   }
 }
+
 class ProfileScreen extends StatefulWidget {
   const ProfileScreen({super.key});
 
@@ -32,14 +34,10 @@ class ProfileScreen extends StatefulWidget {
 class _ProfileScreen extends State<ProfileScreen> {
   final TextEditingController _nombreController = TextEditingController();
   final TextEditingController _apellidoController = TextEditingController();
-
   final TextEditingController _documentoController = TextEditingController();
-
   final TextEditingController _sexoController = TextEditingController();
   final TextEditingController _mailController = TextEditingController();
-
   final TextEditingController _contraseniaController = TextEditingController();
-
   final TextEditingController _telefonoController = TextEditingController();
   final TextEditingController _tarjetaclubController = TextEditingController();
 
@@ -51,7 +49,6 @@ class _ProfileScreen extends State<ProfileScreen> {
     super.initState();
     _loadUserData();
 
-    // Attach listeners to the text controllers to save data on change
     _nombreController.addListener(_saveData);
     _apellidoController.addListener(_saveData);
     _documentoController.addListener(_saveData);
@@ -64,7 +61,6 @@ class _ProfileScreen extends State<ProfileScreen> {
 
   @override
   void dispose() {
-    // Dispose the controllers when the widget is disposed
     _nombreController.dispose();
     _apellidoController.dispose();
     _documentoController.dispose();
@@ -80,19 +76,33 @@ class _ProfileScreen extends State<ProfileScreen> {
     User? user = FirebaseAuth.instance.currentUser;
     if (user != null) {
       _userId = user.uid;
-      DocumentSnapshot userData = await FirebaseFirestore.instance.collection('users').doc(_userId).get();
+      int retryCount = 0;
+      bool success = false;
 
-      if (userData.exists) {
-        Map<String, dynamic>? data = userData.data() as Map<String, dynamic>?;
-        if (data != null) {
-          _nombreController.text = data['nombre'] ?? '';
-          _apellidoController.text = data['apellido'] ?? '';
-          _documentoController.text = data['documento'] ?? '';
-          _sexoController.text = data['sexo'] ?? '';
-          _mailController.text = data['mail'] ?? '';
-          _contraseniaController.text = data['contrasenia'] ?? '';
-          _telefonoController.text = data['telefono'] ?? '';
-          _tarjetaclubController.text = data['tarjetaclub'] ?? '';
+      while (!success && retryCount < 5) {
+        try {
+          DocumentSnapshot userData = await FirebaseFirestore.instance.collection('users').doc(_userId).get();
+          if (userData.exists) {
+            Map<String, dynamic>? data = userData.data() as Map<String, dynamic>?;
+            if (data != null) {
+              _nombreController.text = data['nombre'] ?? '';
+              _apellidoController.text = data['apellido'] ?? '';
+              _documentoController.text = data['documento'] ?? '';
+              _sexoController.text = data['sexo'] ?? '';
+              _mailController.text = data['mail'] ?? '';
+              _contraseniaController.text = data['contrasenia'] ?? '';
+              _telefonoController.text = data['telefono'] ?? '';
+              _tarjetaclubController.text = data['tarjetaclub'] ?? '';
+            }
+          }
+          success = true;
+        } catch (e) {
+          if (e is FirebaseException && e.code == 'unavailable') {
+            retryCount++;
+            await Future.delayed(Duration(seconds: 2));
+          } else {
+            rethrow;
+          }
         }
       }
     }
@@ -126,7 +136,6 @@ class _ProfileScreen extends State<ProfileScreen> {
         'tarjetaclub': tarjetaclub
       });
 
-      // Optionally, show a snackbar or other feedback
       ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
         content: Text('Data Saved Automatically'),
       ));
@@ -246,7 +255,7 @@ class _ProfileScreen extends State<ProfileScreen> {
             ),
             const SizedBox(height: 16),
             const Text(
-              'telefono',
+              'Telefono',
               style: TextStyle(
                 fontWeight: FontWeight.bold,
                 fontSize: 16,
@@ -318,7 +327,7 @@ class _ProfileScreen extends State<ProfileScreen> {
                 ),
               ),
             ),
-            const SizedBox(height: 70,)
+            const SizedBox(height: 70),
           ],
         ),
       ),

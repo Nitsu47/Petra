@@ -3,7 +3,6 @@ import 'package:petratest/screens/Pedido_screen.dart';
 import '../services/api_service.dart';
 import '../models/cart_item.dart';
 
-
 class CartScreen extends StatefulWidget {
   const CartScreen({super.key});
 
@@ -25,30 +24,43 @@ class _CartScreenState extends State<CartScreen> {
   void fetchCart() async {
     try {
       final items = await apiService.fetchCart();
-      setState(() {
-        _cart = items;
-        _message = _cart.isEmpty ? 'El carrito está vacío' : '';
-      });
+      if (mounted) {
+        setState(() {
+          _cart = items;
+          _message = _cart.isEmpty ? 'El carrito está vacío' : '';
+        });
+      }
     } catch (e) {
-      setState(() {
-        _message = 'Error al cargar el carrito: $e';
-      });
+      if (mounted) {
+        setState(() {
+          _message = 'Error al cargar el carrito: $e';
+        });
+      }
     }
   }
 
-  void deleteFromCart(String nombre, String color, String talle) async {
+  void deleteFromCart(String nombre) async {
     try {
-      await apiService.deleteFromCart(nombre, color, talle);
-      setState(() {
-        _cart.removeWhere((item) =>
-            item.nombreProducto == nombre && item.color == color && item.talle == talle);
-        _message = 'Producto eliminado del carrito';
-      });
+      await apiService.deleteFromCart(nombre);
+      if (mounted) {
+        setState(() {
+          _cart.removeWhere((item) => item.nombreProducto == nombre);
+          _message = 'Producto eliminado del carrito';
+        });
+      }
     } catch (e) {
-      setState(() {
-        _message = 'Error al eliminar el producto: $e';
-      });
+      if (mounted) {
+        setState(() {
+          _message = 'Error al eliminar el producto: $e';
+        });
+      }
     }
+  }
+
+  @override
+  void dispose() {
+    // Limpia cualquier recurso o suscripción aquí
+    super.dispose();
   }
 
   @override
@@ -79,7 +91,7 @@ class _CartScreenState extends State<CartScreen> {
                       subtitle: Text('Cantidad: ${item.cantidad}'),
                       trailing: IconButton(
                         icon: const Icon(Icons.delete),
-                        onPressed: () => deleteFromCart(item.nombreProducto, item.color, item.talle),
+                        onPressed: () => deleteFromCart(item.nombreProducto),
                       ),
                     );
                   },
@@ -92,9 +104,9 @@ class _CartScreenState extends State<CartScreen> {
             right: 16,
             child: FloatingActionButton.extended(
               onPressed: () {
-                Navigator.push(context, MaterialPageRoute(builder: (context)=>const PedidoScreen()));
+                Navigator.push(context, MaterialPageRoute(builder: (context) => const PedidoScreen()));
               },
-              label: const Text('Realizar Pedido', style: TextStyle(color: Colors.white),),
+              label: const Text('Realizar Pedido', style: TextStyle(color: Colors.white)),
               icon: const Icon(Icons.shopping_cart_checkout, color: Colors.white),
               backgroundColor: Colors.black,
             ),

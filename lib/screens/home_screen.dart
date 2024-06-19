@@ -176,7 +176,7 @@ class RecentSingleProduct extends StatelessWidget {
               borderRadius: BorderRadius.circular(10),
               child: CachedNetworkImage(
                 imageUrl: recentSingleProdImage!,
-                height: 230,
+                height: 212,
                 width: double.infinity,
                 fit: BoxFit.cover,
                 placeholder: (context, url) =>
