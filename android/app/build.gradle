@@ -5,23 +5,14 @@ plugins {
     id "com.google.gms.google-services" apply false
 }
 
-def localProperties = new Properties()
-def localPropertiesFile = rootProject.file("local.properties")
-if (localPropertiesFile.exists()) {
-    localPropertiesFile.withReader("UTF-8") { reader ->
-        localProperties.load(reader)
-    }
-}
-
-def flutterVersionName = localProperties.getProperty("flutter.versionName")
-if (flutterVersionName == null) {
-    flutterVersionName = "1.0"
-}
+// Directly define flutterVersionCode and flutterVersionName
+def flutterVersionCode = 1
+def flutterVersionName = "1.0"
 
 android {
     namespace = "com.example.petratest"
-    compileSdk = 34 // Updated to use SDK version 34
-    ndkVersion = "21.4.7075529" // Replace with your ndkVersion
+    compileSdk = 34
+    ndkVersion = "21.4.7075529"
 
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_1_8
@@ -30,9 +21,9 @@ android {
 
     defaultConfig {
         applicationId = "com.example.petratest"
-        minSdk = 21 // Replace with your minSdkVersion
-        targetSdk = 34 // Updated to use target SDK version 34
-        versionCode = flutterVersionCode.toInteger()
+        minSdk = 21
+        targetSdk = 34
+        versionCode = flutterVersionCode
         versionName = flutterVersionName
     }
 
@@ -59,5 +50,5 @@ tasks.whenTaskAdded { task ->
 android {
     defaultConfig {
         minSdkVersion 23
-        }
     }
+}
