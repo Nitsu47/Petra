@@ -37,6 +37,7 @@ def añadir_al_carrito(index):
     new_product = {
         "name": product["name"],
         "precio": product["precio"],
+        "img_url": product["img_url"],
         "Cantidad": 1,
     }
     
