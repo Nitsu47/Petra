@@ -225,21 +225,6 @@ class _ProfileScreen extends State<ProfileScreen> {
             ),
             const SizedBox(height: 16),
             const Text(
-              'Sexo',
-              style: TextStyle(
-                fontWeight: FontWeight.bold,
-                fontSize: 16,
-              ),
-            ),
-            TextField(
-              controller: _sexoController,
-              decoration: const InputDecoration(
-                hintText: 'Sexo',
-                border: OutlineInputBorder(),
-              ),
-            ),
-            const SizedBox(height: 16),
-            const Text(
               'Mail',
               style: TextStyle(
                 fontWeight: FontWeight.bold,
@@ -265,21 +250,6 @@ class _ProfileScreen extends State<ProfileScreen> {
               controller: _telefonoController,
               decoration: const InputDecoration(
                 hintText: 'Telefono',
-                border: OutlineInputBorder(),
-              ),
-            ),
-            const SizedBox(height: 16),
-            const Text(
-              'Tarjeta Club El Pais',
-              style: TextStyle(
-                fontWeight: FontWeight.bold,
-                fontSize: 16,
-              ),
-            ),
-            TextField(
-              controller: _tarjetaclubController,
-              decoration: const InputDecoration(
-                hintText: 'Tarjeta Club El Pais',
                 border: OutlineInputBorder(),
               ),
             ),

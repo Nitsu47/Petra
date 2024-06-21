@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import '../services/api_service.dart';
+import 'dart:convert';
+import 'dart:io';
+import 'package:path_provider/path_provider.dart';
 
 class ProductDetailScreen extends StatelessWidget {
   final String title;
@@ -28,7 +30,7 @@ class ProductDetailScreen extends StatelessWidget {
           Image.network(
             imageUrl,
             width: double.infinity,
-            height: 461,
+            height: 600,
             fit: BoxFit.cover,
           ),
           Center(
@@ -72,8 +74,7 @@ class ProductDetailScreen extends StatelessWidget {
                   minimumSize: const Size(400, 60),
                 ),
                 onPressed: () {
-                  final scaffoldContext = context;
-                  addToCart(scaffoldContext);
+                  addToCart(context);
                 },
                 child: const Text('Añadir al carrito'),
               ),
@@ -84,22 +85,31 @@ class ProductDetailScreen extends StatelessWidget {
     );
   }
 
-  void addToCart(BuildContext context) {
-    final apiService = ApiService();
-    apiService.addToCart(index)
-        .then((_) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(
-          content: Text('Producto añadido al carrito'),
-        ),
-      );
-    })
-        .catchError((e) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          content: Text('Error: $e'),
-        ),
-      );
+  void addToCart(BuildContext context) async {
+    final directory = await getApplicationDocumentsDirectory();
+    final path = '${directory.path}/cart.json';
+    File file = File(path);
+
+    List<dynamic> cart = [];
+    if (file.existsSync()) {
+      String content = await file.readAsString();
+      if (content.isNotEmpty) {
+        cart = jsonDecode(content);
+      }
+    }
+
+    cart.add({
+      "name": title,
+      "price": price,
+      "img_url": imageUrl,
     });
+
+    await file.writeAsString(jsonEncode(cart));
+
+    ScaffoldMessenger.of(context).showSnackBar(
+      const SnackBar(
+        content: Text('Producto añadido al carrito'),
+      ),
+    );
   }
 }
