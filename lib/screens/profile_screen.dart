@@ -279,6 +279,14 @@ class _ProfileScreen extends State<ProfileScreen> {
             Center(
               child: ElevatedButton(
                 onPressed: _changePassword,
+                style: ElevatedButton.styleFrom(
+                  foregroundColor: Colors.black, 
+                  backgroundColor: Colors.white,
+                  side: const BorderSide(color: Colors.black),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(8.0),
+                  ),
+                ),
                 child: const Text('Cambiar Contraseña'),
               ),
             ),
